@@ -1,0 +1,33 @@
+function init(self)
+	msg.post('.', 'acquire_input_focus')
+	print(tostring(msg.url().socket) .. ' gui_script_1 init')
+	msg.post('#', 'init_msg', {m = tostring(msg.url().socket) .. ' from gui_script_1 init'})
+end
+
+function final(self)
+	print(tostring(msg.url().socket) .. ' gui_script_1 final')
+	msg.post('printer#script', 'final_msg', {m = tostring(msg.url().socket) .. ' from gui_script_1 final'})
+end
+
+function update(self, dt)
+	print(tostring(msg.url().socket) .. ' gui_script_1 update')
+	msg.post('#', 'update_msg', {m = tostring(msg.url().socket) .. ' from gui_script_1 update'})
+end
+
+function fixed_update(self, dt)
+	--print(tostring(msg.url().socket) .. ' gui_script_1 fixed_update')
+	--msg.post('#gui', 'fixed_update_msg', {m = tostring(msg.url().socket) .. ' from gui_script_1 fixed_update'})
+end
+
+function on_message(self, message_id, message, sender)
+	print(tostring(msg.url().socket) .. ' gui_script_1 on_message: ' .. message.m)
+	if message_id == hash('update_msg') then
+		if self.second then msg.post('#script', 'delete_go') end
+		self.second = true
+	end
+end
+
+function on_input(self, action_id, action)
+	print(tostring(msg.url().socket) .. ' gui_script_1 on_input')
+	msg.post('#', 'input_msg', {m = tostring(msg.url().socket) .. ' from gui_script_1 on_input'})
+end

@@ -1,0 +1,3 @@
+function on_message(self, message_id, message, sender)
+	print(tostring(msg.url().socket) .. ' printer: ' .. message.m)
+end
